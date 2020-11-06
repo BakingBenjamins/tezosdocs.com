@@ -8,5 +8,5 @@
 
 ## "How Can I help Tezos?"
 
-* [Follow the Tezos governance \(wip\)](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
+* [Follow Tezos governance \(wip\)](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
 
