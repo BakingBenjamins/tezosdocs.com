@@ -1,6 +1,7 @@
 # Table of contents
 
 * [What is Tezos?](README.md)
+* [Tezos Governance](tezos-governance.md)
 
 ## Baking
 
