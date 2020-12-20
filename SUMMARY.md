@@ -10,4 +10,5 @@
 
 * [Follow Tezos governance \(wip\)](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
 * [Help Tezos on Social Media \(wip\)](how-can-i-help-tezos/help-tezos-on-social-media-wip.md)
+* [Do Tezos Programming \(wip\)](how-can-i-help-tezos/do-tezos-programming-wip.md)
 
