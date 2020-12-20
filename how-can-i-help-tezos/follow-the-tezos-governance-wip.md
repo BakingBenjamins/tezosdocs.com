@@ -5,7 +5,7 @@ description: >-
   holder you must make sure your baker votes.
 ---
 
-# Follow Tezos governance \(wip\)
+# Follow Tezos governance
 
 ## TL;DR - The only way to make distributed consensus work well is by getting involved personally \(yes, you\). Talk to your baker! Ask them how they voted on the current or past proposal and why. Does their vote represent your interest? Lastly, exchanges don't vote, you're throwing your vote away. Number go up make world better place?
 

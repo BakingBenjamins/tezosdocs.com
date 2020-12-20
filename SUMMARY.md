@@ -5,11 +5,11 @@
 
 ## Baking
 
-* [Tezos Baking Node Setup \(wip\)](baking/tezos-baking-node-setup.md)
+* [Tezos Baking Node Setup](baking/tezos-baking-node-setup.md)
 
 ## "How Can I help Tezos?"
 
-* [Follow Tezos governance \(wip\)](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
-* [Help Tezos on Social Media \(wip\)](how-can-i-help-tezos/help-tezos-on-social-media-wip.md)
-* [Do Tezos Programming \(wip\)](how-can-i-help-tezos/do-tezos-programming-wip.md)
+* [Follow Tezos governance](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
+* [Help Tezos on Social Media](how-can-i-help-tezos/help-tezos-on-social-media-wip.md)
+* [Do Tezos Programming](how-can-i-help-tezos/do-tezos-programming-wip.md)
 

@@ -1,2 +1,2 @@
-# Do Tezos Programming \(wip\)
+# Do Tezos Programming
 

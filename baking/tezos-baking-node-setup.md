@@ -4,7 +4,7 @@ description: >-
   baking node.
 ---
 
-# Tezos Baking Node Setup \(wip\)
+# Tezos Baking Node Setup
 
 {% hint style="info" %}
 _Currently this guide is our own reference for setting up Tezos nodes. It is intended to be short, technical and with as little information as necessary to get the job done. You can reach out to us in_ [_https://t.me/BakingBenjamins_](https://t.me/BakingBenjamins) _if more information is needed. We are aware this is a very low tech way of running a Tezos node but it should give you a good understanding of all the steps you can automate any way to suit your preferences._
