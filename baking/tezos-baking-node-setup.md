@@ -12,40 +12,35 @@ _Currently this guide is our own reference for setting up Tezos nodes. It is int
 
 ## Installing and Setting up Node
 
-### Add Non-root User and allow to execute SUDO commands
+### Add non-root user \(for security\)
 
 `adduser YOUR_username_here  
-usermod -aG sudo YOUR_username_here`  
-
+usermod -aG sudo YOUR_username_here`
 
 This is your “non-root” username. Don't run things as root, it's not worth the problems.
 
-### Setup ZeroTier \(for Node and Remote Signer communication\) \[_run as root_\]
+### \(optional\) Setup ZeroTier \(for node and remote signer communication\) \[_run as root or sudo_\]
 
 {% hint style="info" %}
-_ZeroTier is a simple way to setup 2 machines to talk to each other securely. You can use a variety of other methods; this guide will include some of them in the future_
+_ZeroTier is a simple way to setup 2 machines to talk to each other securely._ Run on both remote signer and VPS machines. This puts them on the same network. Now you have a really simple and secure way to connect from the 2 servers.
 {% endhint %}
 
 `curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \  
 if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi  
-zerotier-cli join <YOUR_NETWORK_HERE>`  
+sudo zerotier-cli join <YOUR_NETWORK_HERE>`
 
+### Install prerequisites \[_run as root or sudo_\]
 
-Run on both remote signer and VPS machines. This puts them on the same network.
+`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam  
+sudo apt update`
 
-### Install Prerequisites \[_run as root_\]
+### Download Tezos blockchain snapshot 
 
-`apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam  
-add-apt-repository ppa:avsm/ppa  
-apt update`
+{% hint style="info" %}
+You can can work on next step while this one runs
+{% endhint %}
 
-### Download Full Chain Snapshot \[as non-root\] \[can work on next step while this one runs\]
-
-`cd ~  
-curl -s https://api.github.com/repos/Phlogi/tezos-snapshots/releases/latest | jq -r ".assets[] | select(.name) | .browser_download_url" | grep full | xargs wget -q --show-progress  
-cat mainnet.full.* | xz -d -v -T0 > mainnet.full`
-
-Another option is to use the Tulip Tools snapshot, which may be newer.  You always want to make sure to use the latest available snapshot to minimize the sync time for your node when it first runs.
+Use one of the sources below to obtain a full or rolling \(both work for baking\) snapshot of the Tezos blockchain. A rolling snapshot will get you started the fastest and is completely fine to use for baking nodes.
 
 {% embed url="https://snapshots.tulip.tools/\#/" caption="Tulip Tools" %}
 
@@ -53,14 +48,14 @@ Another option is to use the Tulip Tools snapshot, which may be newer.  You alwa
 
 {% embed url="https://xtz-shots.io/" caption="MIDL" %}
 
-### Pull Tezos node source, install OPAM for OCaml and build node \[as non-root\]
+### Download Tezos source code, initialize opam and build node
 
 `cd ~  
-git clone`[ `https://gitlab.com/tezos/tezos.git`](https://gitlab.com/tezos/tezos.git) `&& cd tezos  
+git clone`[ `https://gitlab.com/tezos/tezos.git`](https://gitlab.com/tezos/tezos.git)`cd tezos  
 git checkout latest-release  
 git rev-parse HEAD  
 cd  
-opam init         < — (answer yes to questions)  
+opam init # (answer yes to questions)  
 opam update  
 eval $(opam env)  
 cd ~/tezos  
@@ -68,16 +63,76 @@ make build-deps
 eval $(opam env)  
 make`
 
-### Generate Tezos Node Identity \[as non-root\]
+### Generate Tezos node identity
 
 `./tezos-node identity generate`
 
-### Import Full Chain Snapshot and Verify it’s Legitimate
+### Import chain snapshot and verify its legitimacy
 
-`./tezos-node snapshot import ../mainnet.full --block <ENTER_BLOCK_HASH_HERE>`  
+{% hint style="info" %}
+The import of the snapshot will take a no more than an hour on most systems.  If you're importing a full snapshot, the process may take up to a full day if you're running on a slow VM or fanless system
+{% endhint %}
 
+`./tezos-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>`
 
-### Start Node and Start Baking
+Replace the made up path to where your downloaded and uncompressed the Tezos chain snapshot. Navigate to any Tezos blockchain explorer like [https://tzstats.com](https://tzstats.com) and [https://tzkt.io](https://tzkt.io) and look up the block number referenced by the snapshot website. The block will have a hash \# associated with it, which you will need to copy into the `<ENTER_BLOCK_HASH_HERE>` portion. This verifies the integrity of the chain and saves you many hours of synchronization and waiting.
+
+### Start node and baking executables \(on standalone setup\)
+
+**Run First Time Only to Add Ledger Support and Import Baker’s Key**
+
+First add udev rules then import ledger signer info.
+
+`wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/709581c85db97bf6ea12e472aa4e350bf0eabfb7/add_udev_rules.sh | sudo bash  
+udevadm trigger  
+udevadm control --reload-rules  
+./tezos-client list connected ledgers  
+# (replace ledger://<4-words-here> commands below with YOUR unique ledger path)  
+./tezos-signer import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"  
+# (run only first time; to have it available just in case for the other use case with 2 computers)  
+./tezos-client import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"  
+# (run only first time)`
+
+**Run Every Time: Start Ledger/Node/Baker/Endorser/Accuser Processes**
+
+`screen -S TezosNode  
+./tezos-node run --rpc-addr 127.0.0.1`
+
+{% hint style="info" %}
+CTRL+A then H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+`./tezos-client setup ledger to bake for baker --main-hwm 1061796  
+# (changes ledger to latest tezos block to prevent double baking)   
+screen -S TezosBakerDelphi  
+export TEZOS_LOG='* -> debug'  
+./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
+
+{% hint style="info" %}
+CTRL+A then H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+`screen -S TezosEndorserDelhi  
+export TEZOS_LOG='* -> debug'  
+./tezos-endorser-007-PsDELPH1 run baker`
+
+{% hint style="info" %}
+CTRL+A then H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+`screen -S TezosAccuserDelphi  
+export TEZOS_LOG='* -> debug'  
+./tezos-accuser-007-PsDELPH1 run`
+
+{% hint style="info" %}
+CTRL+A then H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+### Start node and baking executables \(on remote signer setup\)
 
 #### Run on Ledger Machine \(Ledger attached here\)
 
@@ -92,7 +147,7 @@ udevadm control --reload-rules
 
 **Run Every Time: Start Node Service and Verify Ledger Connectivity**
 
-`screen -S Node  
+`screen -S TezosNode  
 ./tezos-node run --rpc-addr 127.0.0.1`
 
 {% hint style="info" %}
@@ -102,13 +157,17 @@ CTRL+A then d to disconnect from Screen session
 
 **Run First Time Only to Import Ledger Info**
 
-`./tezos-client list connected ledgers    < — (replace ledger://<4-words-here> commands below with YOUR unique ledger path)  
-./tezos-signer import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"    < — (run only first time)  
-./tezos-client import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"    < — (run only first time)`
+`./tezos-client list connected ledgers   
+# (replace ledger://<4-words-here> commands below with YOUR unique ledger path)  
+./tezos-signer import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"   
+# (run only first time)  
+./tezos-client import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"   
+# (run only first time)`
 
 **Run Every Time: Start Node Service**
 
-`./tezos-client setup ledger to bake for baker --main-hwm 958888    < — (change to latest tezos block)  
+`./tezos-client setup ledger to bake for baker --main-hwm 958888  
+# (change to latest tezos block)  
 screen -S Signer  
 ./tezos-signer launch socket signer -a X.X.X.X -p 22222`
 
@@ -125,7 +184,7 @@ CTRL+A then d to disconnect from Screen session
 
 **Run Every Time: Start node/baker/endorser/accuser/ping**
 
-`screen -S Node  
+`screen -S TezosNode  
 ./tezos-node run --rpc-addr 127.0.0.1`
 
 {% hint style="info" %}
@@ -133,86 +192,35 @@ CTRL+A then H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S Baker  
+`screen -S TezosBakerDelphi  
 export TEZOS_LOG='* -> debug'  
-./tezos-baker-006-PsCARTHA run with local node ~/.tezos-node baker`
+./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S Endorser  
+`screen -S TezosEndorserDelphi  
 export TEZOS_LOG='* -> debug'  
-./tezos-endorser-006-PsCARTHA run baker`
+./tezos-endorser-007-PsDELPH1 run baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S Accuser  
+`screen -S TezosAccuserDelphi  
 export TEZOS_LOG='* -> debug'  
-./tezos-accuser-006-PsCARTHA run`
+./tezos-accuser-007-PsDELPH1 run`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S Ping  
+`screen -S TezosPing  
 ping -D -O -i 7 X.X.X.X`
-
-{% hint style="info" %}
-CTRL+A then H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-#### Run on Combination Machine \(Node/Baker + Ledger attached on single machine\)
-
-**Run First Time Only to Add Ledger Support and Import Baker’s Key**
-
-First add udev rules then import ledger signer info.
-
-`wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/709581c85db97bf6ea12e472aa4e350bf0eabfb7/add_udev_rules.sh | sudo bash  
-udevadm trigger  
-udevadm control --reload-rules  
-./tezos-client list connected ledgers    < — (replace ledger://<4-words-here> commands below with YOUR unique ledger path)  
-./tezos-signer import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"    < — (run only first time; to have it available just in case for the other use case with 2 computers)  
-./tezos-client import secret key baker "ledger://<4-words-here>/bip25519/0h/0h"    < — (run only first time)`
-
-**Run Every Time: Start Ledger/Node/Baker/Endorser/Accuser Processes**
-
-`screen -S Node  
-./tezos-node run --rpc-addr 127.0.0.1`
-
-{% hint style="info" %}
-CTRL+A then H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`./tezos-client setup ledger to bake for baker --main-hwm 1061796    < — (change to latest tezos block` [`www.tzstats.com`](http://www.tzstats.com)`)   
-screen -S Baker  
-export TEZOS_LOG='* -> debug'  
-./tezos-baker-006-PsCARTHA run with local node ~/.tezos-node baker`
-
-{% hint style="info" %}
-CTRL+A then H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S Endorser  
-export TEZOS_LOG='* -> debug'  
-./tezos-endorser-006-PsCARTHA run baker`
-
-{% hint style="info" %}
-CTRL+A then H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S Accuser  
-export TEZOS_LOG='* -> debug'  
-./tezos-accuser-006-PsCARTHA run`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
@@ -228,15 +236,22 @@ Make sure all tezos processes are stopped before updating your software. Double 
 First you need to navigate where the Tezos binaries are compiled, then you update the latest source code from the official Tezos source code repository and compile the new version.
 
 `cd ~/tezos  
-git fetch && git checkout latest-release && git pull  
-make build-deps && eval $(opam env)  
+git fetch  
+git checkout latest-release  
+git pull  
+eval $(opam env)  
+make build-deps  
 make`
 
 After updating your software you can launch the old binaries and the new binaries to run at the same time.  Once the new protocol is activated or once you bake/endorse your last block for the old protocol, you can discard its binaries.
 
-### Start Node
+### Start Universal Node
 
-`screen -S Node  
+{% hint style="info" %}
+While you need to run 2 copies of the baking, endorsing and accusing binaries, you only have to run one copy of the node binary
+{% endhint %}
+
+`screen -S TezosNode  
 ./tezos-node run --rpc-addr 127.0.0.1`
 
 {% hint style="info" %}
@@ -246,40 +261,12 @@ CTRL+A then d to disconnect from Screen session
 
 Make sure the Ledger Nano S is attached and has the Baking app open. Confirm the command below by hand on your Ledger Nano S.
 
-`./tezos-client setup ledger to bake for baker --main-hwm 1061796    < — (change to latest tezos block` [`www.tzstats.com`](http://www.tzstats.com)`)` 
+`./tezos-client setup ledger to bake for baker --main-hwm 1061796  
+# (change to latest tezos block)` 
 
-### Start Old Binaries
+### Start Old Binaries \(Delphi \#007\)
 
-`screen -S Baker  
-export TEZOS_LOG='* -> debug'  
-./tezos-baker-006-PsCARTHA run with local node ~/.tezos-node baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S Endorser  
-export TEZOS_LOG='* -> debug'  
-./tezos-endorser-006-PsCARTHA run baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S Accuser  
-export TEZOS_LOG='* -> debug'  
-./tezos-accuser-006-PsCARTHA run`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-### Start New Binaries
-
-`screen -S BakerNEW  
+`screen -S TezosBakerDelphi  
 export TEZOS_LOG='* -> debug'  
 ./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
 
@@ -288,7 +275,7 @@ CTRL+A then Shift+H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S EndorserNEW  
+`screen -S TezosEndorserDelphi  
 export TEZOS_LOG='* -> debug'  
 ./tezos-endorser-007-PsDELPH1 run baker`
 
@@ -297,9 +284,40 @@ CTRL+A then Shift+H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S AccuserNEW  
+`screen -S TezosAccuserDelphi  
 export TEZOS_LOG='* -> debug'  
 ./tezos-accuser-007-PsDELPH1 run`
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+### Start New Binaries \(Edo \#008\)
+
+`screen -S TezosBakerEdo  
+export TEZOS_LOG='* -> debug'  
+./tezos-baker-008-PtEdoTez run with local node ~/.tezos-node baker`
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+`screen -S TezosEndorserEdo  
+export TEZOS_LOG='* -> debug'  
+./tezos-endorser-008-PtEdoTez run baker`
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session  
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+`screen -S TezosAccuserEdo  
+export TEZOS_LOG='* -> debug'  
+./tezos-accuser-008-PtEdoTez run`
+
+\`\`
 
 {% hint style="info" %}
 CTRL+A then Shift+H to log/record session  
