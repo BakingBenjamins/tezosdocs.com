@@ -1,14 +1,10 @@
 ---
-description: >-
-  How to compile Tezos from source & what other options exist to run a Tezos
-  baking node.
+description: How to compile Tezos from source and run node software in "screen" sessions.
 ---
 
-# Tezos Baking Node Setup
+# Setup Tezos Baking Node
 
-{% hint style="info" %}
-_Currently this guide is our own reference for setting up Tezos nodes. It is intended to be short, technical and with as little information as necessary to get the job done. You can reach out to us in_ [_https://t.me/BakingBenjamins_](https://t.me/BakingBenjamins) _if more information is needed. We are aware this is a very low tech way of running a Tezos node but it should give you a good understanding of all the steps you can automate any way to suit your preferences._
-{% endhint %}
+Below you will find a low tech way to run a homebrew type of Tezos node. This guide is intended to be short, technical and with as little information as necessary to get the job done. You can reach out to us in [https://t.me/BakingBenjamins](https://t.me/BakingBenjamins) if more information is needed.
 
 ## Prepare to install Tezos node
 
@@ -50,6 +46,8 @@ Use one of the sources below to obtain a full or rolling \(both work for baking\
 
 {% embed url="https://xtz-shots.io/" caption="MIDL" %}
 
+## Compile Tezos node & import snapshot
+
 ### Download Tezos source code, initialize opam and build Tezos binaries
 
 `cd ~  
@@ -80,6 +78,8 @@ The import of the snapshot will take a no more than an hour on most systems.  If
 `./tezos-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>`
 
 Replace the made up path to where your downloaded and uncompressed the Tezos chain snapshot. Navigate to any Tezos blockchain explorer like [https://tzstats.com](https://tzstats.com) and [https://tzkt.io](https://tzkt.io) and look up the block number referenced by the snapshot website. The block will have a hash \# associated with it, which you will need to copy into the `<ENTER_BLOCK_HASH_HERE>` portion. This verifies the integrity of the chain and saves you many hours of synchronization and waiting.
+
+## Start Tezos node and baking executables
 
 ### Start node and baking executables \(on standalone setup\)
 
@@ -231,100 +231,10 @@ CTRL+A then H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-## Updating Tezos Nodes \(for manually compiled\)
 
-{% hint style="info" %}
-Make sure all tezos processes are stopped before updating your software. Double check that you don't have any baking of endorsing operations coming up before attemtping to make any changes to your node.
-{% endhint %}
 
-First you need to navigate where the Tezos binaries are compiled, then you update the latest source code from the official Tezos source code repository and compile the new version.
 
-`cd ~/tezos  
-git fetch  
-git checkout latest-release  
-git pull  
-eval $(opam env)  
-make build-deps  
-make`
 
-After updating your software you can launch the old binaries and the new binaries to run at the same time.  Once the new protocol is activated or once you bake/endorse your last block for the old protocol, you can discard its binaries.
-
-### Start Universal Node
-
-{% hint style="info" %}
-While you need to run 2 copies of the baking, endorsing and accusing binaries, you only have to run one copy of the node binary
-{% endhint %}
-
-`screen -S TezosNode  
-./tezos-node run --rpc-addr 127.0.0.1`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-Make sure the Ledger Nano S is attached and has the Baking app open. Confirm the command below by hand on your Ledger Nano S.
-
-`./tezos-client setup ledger to bake for baker --main-hwm 1061796  
-# (change to latest tezos block)` 
-
-### Start Old Binaries \(Delphi \#007\)
-
-`screen -S TezosBakerDelphi  
-export TEZOS_LOG='* -> debug'  
-./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S TezosEndorserDelphi  
-export TEZOS_LOG='* -> debug'  
-./tezos-endorser-007-PsDELPH1 run baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S TezosAccuserDelphi  
-export TEZOS_LOG='* -> debug'  
-./tezos-accuser-007-PsDELPH1 run`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-### Start New Binaries \(Edo \#008\)
-
-`screen -S TezosBakerEdo  
-export TEZOS_LOG='* -> debug'  
-./tezos-baker-008-PtEdoTez run with local node ~/.tezos-node baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S TezosEndorserEdo  
-export TEZOS_LOG='* -> debug'  
-./tezos-endorser-008-PtEdoTez run baker`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-`screen -S TezosAccuserEdo  
-export TEZOS_LOG='* -> debug'  
-./tezos-accuser-008-PtEdoTez run`
-
-\`\`
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session  
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
+> 🙏 _Donate & help us grow. All proceeds go to more baking capacity._  
+>                                                        **tz1S5WxdZR5f9NzsPXhr7L9L1vrEb5spZFur**
 
