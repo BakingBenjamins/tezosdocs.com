@@ -10,7 +10,9 @@ description: >-
 _Currently this guide is our own reference for setting up Tezos nodes. It is intended to be short, technical and with as little information as necessary to get the job done. You can reach out to us in_ [_https://t.me/BakingBenjamins_](https://t.me/BakingBenjamins) _if more information is needed. We are aware this is a very low tech way of running a Tezos node but it should give you a good understanding of all the steps you can automate any way to suit your preferences._
 {% endhint %}
 
-## Installing and Setting up Node
+## Prepare to install Tezos node
+
+This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
 
 ### Add non-root user \(for security\)
 
@@ -29,9 +31,9 @@ _ZeroTier is a simple way to setup 2 machines to talk to each other securely._ R
 if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi  
 sudo zerotier-cli join <YOUR_NETWORK_HERE>`
 
-### Install prerequisites \[_run as root or sudo_\]
+### Install operating system prerequisites \[_run as root or sudo_\]
 
-`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam  
+`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam   
 sudo apt update`
 
 ### Download Tezos blockchain snapshot 
@@ -48,14 +50,16 @@ Use one of the sources below to obtain a full or rolling \(both work for baking\
 
 {% embed url="https://xtz-shots.io/" caption="MIDL" %}
 
-### Download Tezos source code, initialize opam and build node
+### Download Tezos source code, initialize opam and build Tezos binaries
 
 `cd ~  
-git clone`[ `https://gitlab.com/tezos/tezos.git`](https://gitlab.com/tezos/tezos.git)`cd tezos  
+git clone https://gitlab.com/tezos/tezos.git  
+cd tezos  
 git checkout latest-release  
 git rev-parse HEAD  
 cd  
-opam init # (answer yes to questions)  
+opam init  
+# (answer yes to questions)  
 opam update  
 eval $(opam env)  
 cd ~/tezos  
