@@ -1,6 +1,6 @@
 # Update Tezos Baking Node
 
-
+Update your node to be able to run the Edo proposal while still running Delphi in production. Once the switchover happens, the Edo binaries will take over and you can stop the old ones.
 
 ## Updating Tezos Nodes
 
