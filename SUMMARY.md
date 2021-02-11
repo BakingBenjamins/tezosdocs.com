@@ -2,6 +2,7 @@
 
 * [What is Tezos?](README.md)
 * [Tezos Governance](tezos-governance.md)
+* [Helpful Links](helpful-links.md)
 
 ## Baking
 
