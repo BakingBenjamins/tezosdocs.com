@@ -8,6 +8,8 @@ description: Links to get you started on your Tezos journey
 
 {% embed url="https://tezos.watch/" caption="tezos.watch: Corporate bakers & STOs" %}
 
+{% embed url="https://www.tezos.help/" caption="tezos.help: All-in-one information site. Find out which bakers vote!" %}
+
 
 
 
