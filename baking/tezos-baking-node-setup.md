@@ -59,7 +59,6 @@ cd
 opam init  
 # (answer yes to questions)  
 opam update  
-eval $(opam env)  
 cd ~/tezos  
 make build-deps   
 eval $(opam env)  
@@ -109,9 +108,9 @@ CTRL+A then d to disconnect from Screen session
 
 `./tezos-client setup ledger to bake for baker --main-hwm 1061796  
 # (changes ledger to latest tezos block to prevent double baking)   
-screen -S TezosBakerDelphi  
+screen -S TezosBakerEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
+./tezos-baker-008-PtEdo2Zk run with local node ~/.tezos-node baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
@@ -120,16 +119,16 @@ CTRL+A then d to disconnect from Screen session
 
 `screen -S TezosEndorserDelhi  
 export TEZOS_LOG='* -> debug'  
-./tezos-endorser-007-PsDELPH1 run baker`
+./tezos-endorser-008-PtEdo2Zk run baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S TezosAccuserDelphi  
+`screen -S TezosAccuserEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-accuser-007-PsDELPH1 run`
+./tezos-accuser-008-PtEdo2Zk run`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
@@ -196,27 +195,27 @@ CTRL+A then H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S TezosBakerDelphi  
+`screen -S TezosBakerEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-baker-007-PsDELPH1 run with local node ~/.tezos-node baker`
+./tezos-baker-008-PtEdo2Zk run with local node ~/.tezos-node baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S TezosEndorserDelphi  
+`screen -S TezosEndorserEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-endorser-007-PsDELPH1 run baker`
+./tezos-endorser-008-PtEdo2Zk run baker`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-`screen -S TezosAccuserDelphi  
+`screen -S TezosAccuserEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-accuser-007-PsDELPH1 run`
+./tezos-accuser-008-PtEdo2Zk run`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
