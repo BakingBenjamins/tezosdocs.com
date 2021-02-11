@@ -14,8 +14,8 @@ First you need to navigate where the Tezos binaries are compiled, then you updat
 git fetch  
 git checkout latest-release  
 git pull  
-eval $(opam env)  
 make build-deps  
+eval $(opam env)  
 make`
 
 After updating your software you can launch the old binaries and the new binaries to run at the same time.  Once the new protocol is activated or once you bake/endorse your last block for the old protocol, you can discard its binaries.
@@ -72,7 +72,7 @@ CTRL+A then d to disconnect from Screen session
 
 `screen -S TezosBakerEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-baker-008-PtEdoTez run with local node ~/.tezos-node baker`
+./tezos-baker-008-PtEdo2Zk run with local node ~/.tezos-node baker`
 
 {% hint style="info" %}
 CTRL+A then Shift+H to log/record session  
@@ -81,7 +81,7 @@ CTRL+A then d to disconnect from Screen session
 
 `screen -S TezosEndorserEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-endorser-008-PtEdoTez run baker`
+./tezos-endorser-008-PtEdo2Zk run baker`
 
 {% hint style="info" %}
 CTRL+A then Shift+H to log/record session  
@@ -90,7 +90,7 @@ CTRL+A then d to disconnect from Screen session
 
 `screen -S TezosAccuserEdo  
 export TEZOS_LOG='* -> debug'  
-./tezos-accuser-008-PtEdoTez run`
+./tezos-accuser-008-PtEdo2Zk run`
 
 {% hint style="info" %}
 CTRL+A then Shift+H to log/record session  
