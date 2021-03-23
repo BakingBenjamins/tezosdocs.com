@@ -29,7 +29,7 @@ sudo zerotier-cli join <YOUR_NETWORK_HERE>`
 
 ### Install operating system prerequisites \[_run as root or sudo_\]
 
-`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam   
+`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev  
 sudo apt update`
 
 ### Download Tezos blockchain snapshot 
