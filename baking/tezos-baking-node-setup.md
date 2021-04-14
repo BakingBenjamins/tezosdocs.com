@@ -4,8 +4,6 @@ description: How to compile Tezos from source and run node software in "screen" 
 
 # Setup Tezos Baking Node
 
-Below you will find a low tech way to run a homebrew type of Tezos node. This guide is intended to be short, technical and with as little information as necessary to get the job done. You can reach out to us in [https://t.me/BakingBenjamins](https://t.me/BakingBenjamins) if more information is needed.
-
 ## Prepare to install Tezos node
 
 This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
