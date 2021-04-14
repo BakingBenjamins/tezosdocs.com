@@ -17,8 +17,6 @@ Never run things as a root user. It's not worth the security compromises.
 `adduser YOUR_username_here  
 usermod -aG sudo YOUR_username_here`
 
-This is your “non-root” username. Don't run things as root, it's not worth the problems.
-
 ### \(optional\) Setup ZeroTier \(for node and remote signer communication\)
 
 {% hint style="info" %}

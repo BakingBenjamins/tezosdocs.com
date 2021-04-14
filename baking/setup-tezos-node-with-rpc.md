@@ -15,12 +15,12 @@ This guide starts with the latest Ubuntu 20.10 server version but it should work
 
 {% hint style="info" %}
 Never run things as a root user. It's not worth the security compromises.
+
+You can skip this step if you're already logging in with a user other than "root"
 {% endhint %}
 
 `adduser YOUR_username_here  
 usermod -aG sudo YOUR_username_here`
-
-This is your “non-root” username. Don't run things as root, it's not worth the problems.
 
 ### Install operating system prerequisites
 
@@ -73,7 +73,6 @@ git rev-parse HEAD
 cd  
 opam init  
 # (answer yes to questions)  
-opam update  
 cd ~/tezos  
 make build-deps   
 eval $(opam env)  
