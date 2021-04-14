@@ -42,7 +42,7 @@ chmod +x rustup-init.sh
 
 ```text
 cd /tmp
-https://raw.githubusercontent.com/zcash/zcash/master/zcutil/fetch-params.sh
+wget https://raw.githubusercontent.com/zcash/zcash/master/zcutil/fetch-params.sh
 chmod +x fetch-params.sh
 ./fetch-params.sh
 ```
