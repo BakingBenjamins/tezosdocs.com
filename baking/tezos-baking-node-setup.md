@@ -12,12 +12,16 @@ This guide starts with the latest Ubuntu 20.10 server version but it should work
 
 ### Add non-root user \(for security\)
 
+{% hint style="info" %}
+Never run things as a root user. It's not worth the security compromises.
+{% endhint %}
+
 `adduser YOUR_username_here  
 usermod -aG sudo YOUR_username_here`
 
 This is your “non-root” username. Don't run things as root, it's not worth the problems.
 
-### \(optional\) Setup ZeroTier \(for node and remote signer communication\) \[_run as root or sudo_\]
+### \(optional\) Setup ZeroTier \(for node and remote signer communication\)
 
 {% hint style="info" %}
 _ZeroTier is a simple way to setup 2 machines to talk to each other securely._ Run on both remote signer and VPS machines. This puts them on the same network. Now you have a really simple and secure way to connect from the 2 servers.
@@ -27,10 +31,30 @@ _ZeroTier is a simple way to setup 2 machines to talk to each other securely._ R
 if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi  
 sudo zerotier-cli join <YOUR_NETWORK_HERE>`
 
-### Install operating system prerequisites \[_run as root or sudo_\]
+### Install operating system prerequisites
 
 `sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev  
 sudo apt update`
+
+### Install Tezos prerequisites \[run as regular user\]
+
+#### Install Rust
+
+```text
+cd /tmp
+wget https://sh.rustup.rs/rustup-init.sh
+chmod +x rustup-init.sh
+./rustup-init.sh --profile minimal --default-toolchain 1.44.0 -y
+```
+
+### Install Zcash Parameters
+
+```text
+cd /tmp
+https://raw.githubusercontent.com/zcash/zcash/master/zcutil/fetch-params.sh
+chmod +x fetch-params.sh
+./fetch-params.sh
+```
 
 ### Download Tezos blockchain snapshot 
 
