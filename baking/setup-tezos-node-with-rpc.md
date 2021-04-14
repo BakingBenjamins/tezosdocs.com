@@ -106,6 +106,10 @@ This starts your node in a "screen" session, which keeps running in the backgrou
 
 Once your node is up and fully synchronized, you are ready to inject operations into the blockchain using ./tezos-client or your own RPC running on port 8732 via the Temple wallet.
 
+
+
+
+
 > 🙏 _Donate & help us grow. All proceeds go to more baking capacity._  
 >                                                        **tz1S5WxdZR5f9NzsPXhr7L9L1vrEb5spZFur**
 
