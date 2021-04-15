@@ -106,6 +106,25 @@ This starts your node in a "screen" session, which keeps running in the backgrou
 
 Once your node is up and fully synchronized, you are ready to inject operations into the blockchain using ./tezos-client or your own RPC running on port 8732 via the Temple wallet.
 
+You can monitor your node by running:
+
+```text
+cd ~/tezos
+tail -f screen*
+```
+
+The node is synchronized when you see a message like this with blocks which have recent timestamps passing by:
+
+![Fully synchronized node](../.gitbook/assets/image%20%282%29.png)
+
+## Change your wallet's RPC provider
+
+To use your own computer's RPC node on the Temple wallet select the network icon and choose the option on the bottom `localhost:8732`
+
+![localhost:8732](../.gitbook/assets/image%20%283%29.png)
+
+Any other service which has "RPC" in the settings will allow you to set your own RPC server to your own node by using the same address.  It's possible you will need to include `http://localhost:8732` or use `http://127.0.0.1:8732`.
+
 
 
 
