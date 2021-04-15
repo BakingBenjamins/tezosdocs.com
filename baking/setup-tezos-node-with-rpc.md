@@ -102,6 +102,12 @@ CTRL+A then H to log/record session
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
+You can also start your node in detached screen mode and let it run in the background
+
+```text
+screen -mdSL TezosNode bash -c "cd ~/tezos; ./tezos-node run --rpc-addr 127.0.0.1; exec $SHELL"
+```
+
 This starts your node in a "screen" session, which keeps running in the background, as long as you properly exit it.
 
 Once your node is up and fully synchronized, you are ready to inject operations into the blockchain using ./tezos-client or your own RPC running on port 8732 via the Temple wallet.
