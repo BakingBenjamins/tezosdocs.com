@@ -10,9 +10,7 @@
 * [Update Tezos Baking Node](baking/update-tezos-baking-node.md)
 * [Setup Tezos Node with RPC](baking/setup-tezos-node-with-rpc.md)
 
-## "How Can I help Tezos?"
+## SalsaDAO.xyz
 
-* [Follow Tezos Governance](how-can-i-help-tezos/follow-the-tezos-governance-wip.md)
-* [Help Tezos on Social Media \(wip\)](how-can-i-help-tezos/help-tezos-on-social-media-wip.md)
-* [Do Tezos Programming \(wip\)](how-can-i-help-tezos/do-tezos-programming-wip.md)
+* [Beta Test SalsaDAO Casino](salsadao.xyz/beta-test-salsadao-casino.md)
 
