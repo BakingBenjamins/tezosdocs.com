@@ -24,7 +24,7 @@ sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync c
 cd /tmp
 wget https://sh.rustup.rs/rustup-init.sh
 chmod +x rustup-init.sh
-./rustup-init.sh --profile minimal --default-toolchain 1.44.0 -y
+./rustup-init.sh --profile minimal --default-toolchain 1.52.1 -y
 ```
 
 ### Install Zcash Parameters
