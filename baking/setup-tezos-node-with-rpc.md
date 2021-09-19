@@ -13,8 +13,8 @@ This guide starts with the latest Ubuntu 20.10 server version but it should work
 
 ### Install operating system prerequisites
 
-`sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev  
-sudo apt update`
+`sudo apt update  
+sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev`
 
 ### Install Tezos prerequisites
 
