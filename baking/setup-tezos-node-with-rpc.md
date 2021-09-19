@@ -56,7 +56,6 @@ cd tezos
 git checkout latest-release  
 opam init --bare  
 # (answer yes to questions)  
-cd ~/tezos  
 make build-deps   
 eval $(opam env)  
 make`
