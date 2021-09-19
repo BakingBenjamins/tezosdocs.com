@@ -10,7 +10,3 @@
 * [Update Tezos Baking Node](baking/update-tezos-baking-node.md)
 * [Setup Tezos Node with RPC](baking/setup-tezos-node-with-rpc.md)
 
-## SalsaDAO.xyz
-
-* [Beta Test SalsaDAO Casino](salsadao.xyz/beta-test-salsadao-casino.md)
-
