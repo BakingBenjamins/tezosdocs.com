@@ -55,10 +55,6 @@ You can can work on next step while this one runs
 
 Use one of the sources below to obtain a full or rolling \(both work for baking\) snapshot of the Tezos blockchain. A rolling snapshot will get you started the fastest and is completely fine to use for most purposes like farming.
 
-{% embed url="https://snapshots.tulip.tools/\#/" caption="Tulip Tools" %}
-
-{% embed url="https://snapshots-tezos.giganode.io/" caption="Giganode" %}
-
 {% embed url="https://xtz-shots.io/" caption="MIDL" %}
 
 ## Compile Tezos node & import snapshot
@@ -69,9 +65,7 @@ Use one of the sources below to obtain a full or rolling \(both work for baking\
 git clone https://gitlab.com/tezos/tezos.git  
 cd tezos  
 git checkout latest-release  
-git rev-parse HEAD  
-cd  
-opam init  
+opam init --bare  
 # (answer yes to questions)  
 cd ~/tezos  
 make build-deps   
@@ -105,7 +99,7 @@ CTRL+A then d to disconnect from Screen session
 You can also start your node in detached screen mode and let it run in the background
 
 ```text
-screen -mdSL TezosNode bash -c "cd ~/tezos; ./tezos-node run --rpc-addr 127.0.0.1; exec $SHELL"
+screen -mdSL TezosNode bash -c "cd ~/tezos; ./tezos-node run --rpc-addr 127.0.0.1:8732 --cors-header='content-type' --cors-origin='*'; exec $SHELL"
 ```
 
 This starts your node in a "screen" session, which keeps running in the background, as long as you properly exit it.
@@ -130,6 +124,10 @@ To use your own computer's RPC node on the Temple wallet select the network icon
 ![localhost:8732](../.gitbook/assets/image%20%283%29.png)
 
 Any other service which has "RPC" in the settings will allow you to set your own RPC server to your own node by using the same address.  It's possible you will need to include `http://localhost:8732` or use `http://127.0.0.1:8732`.
+
+{% hint style="info" %}
+This will ONLY work with your RPC node is the same node where you have Temple installed. The guide will be expanded to support 
+{% endhint %}
 
 
 
