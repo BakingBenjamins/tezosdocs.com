@@ -46,6 +46,8 @@ Use one of the sources below to obtain a full or rolling \(both work for baking\
 
 {% embed url="https://xtz-shots.io/" caption="MIDL" %}
 
+{% embed url="https://snaps.teztools.io/" caption="TezTools" %}
+
 ## Compile Tezos node & import snapshot
 
 ### Download Tezos source code, initialize opam and build Tezos binaries
