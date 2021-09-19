@@ -11,23 +11,12 @@ description: >-
 
 This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
 
-### Add non-root user \(for security\)
-
-{% hint style="info" %}
-Never run things as a root user. It's not worth the security compromises.
-
-You can skip this step if you're already logging in with a user other than "root"
-{% endhint %}
-
-`adduser YOUR_username_here  
-usermod -aG sudo YOUR_username_here`
-
 ### Install operating system prerequisites
 
 `sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev  
 sudo apt update`
 
-### Install Tezos prerequisites \[run as regular user\]
+### Install Tezos prerequisites
 
 #### Install Rust
 
@@ -89,7 +78,7 @@ Replace the made up path to where your downloaded and uncompressed the Tezos cha
 ## Start Tezos node
 
 `screen -S TezosNode  
-./tezos-node run --rpc-addr 127.0.0.1`
+./tezos-node run --rpc-addr 127.0.0.1 --cors-header='content-type' --cors-origin='*'`
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
