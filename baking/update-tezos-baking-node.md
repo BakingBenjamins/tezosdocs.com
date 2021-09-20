@@ -7,7 +7,7 @@ Update your node to be able to run the Granada proposal while still running Flor
 ## Updating Tezos Nodes
 
 {% hint style="info" %}
-Make sure all tezos processes are stopped before updating your software. Double check that you don't have any baking of endorsing operations coming up before attempting to make any changes to your node.
+Make sure all Tezos processes are stopped before updating your software. Double check that you don't have any baking of endorsing operations coming up before attempting to make any changes to your node.
 {% endhint %}
 
 First you need to navigate where the Tezos binaries are compiled, then you update the latest source code from the official Tezos source code repository and compile the new version.
