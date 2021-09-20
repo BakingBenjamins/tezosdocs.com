@@ -13,8 +13,10 @@ This guide starts with the latest Ubuntu 20.10 server version but it should work
 
 ### Install operating system prerequisites
 
-`sudo apt update  
-sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev`
+```text
+sudo apt update
+sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev
+```
 
 ### Install Tezos prerequisites
 
@@ -52,19 +54,20 @@ Use one of the sources below to obtain a full or rolling \(both work for baking\
 
 ### Download Tezos source code, initialize opam and build Tezos binaries
 
-`cd ~  
-git clone https://gitlab.com/tezos/tezos.git  
-cd tezos  
-git checkout latest-release  
-opam init --bare  
-# (answer yes to questions)  
-make build-deps   
-eval $(opam env)  
-make`
+```text
+cd ~ && git clone https://gitlab.com/tezos/tezos.git && cd tezos && git checkout latest-release
+opam init --bare
+# (answer yes to questions)
+make build-deps 
+eval $(opam env)
+make
+```
 
 ### Generate Tezos node identity
 
-`./tezos-node identity generate`
+```text
+./tezos-node identity generate
+```
 
 ### Import chain snapshot and verify its legitimacy
 
@@ -72,14 +75,18 @@ make`
 The import of the snapshot will take a no more than an hour on most systems.  If you're importing a full snapshot, the process may take up to a full day if you're running on a slow VM or fanless system
 {% endhint %}
 
-`./tezos-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>`
+```text
+./tezos-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>
+```
 
 Replace the made up path to where your downloaded and uncompressed the Tezos chain snapshot. Navigate to any Tezos blockchain explorer like [https://tzstats.com](https://tzstats.com) and [https://tzkt.io](https://tzkt.io) and look up the block number referenced by the snapshot website. The block will have a hash \# associated with it, which you will need to copy into the `<ENTER_BLOCK_HASH_HERE>` portion. This verifies the integrity of the chain and saves you many hours of synchronization and waiting.
 
 ## Start Tezos node
 
-`screen -S TezosNode  
-./tezos-node run --rpc-addr 127.0.0.1 --cors-header='content-type' --cors-origin='*'`
+```text
+screen -S TezosNode
+./tezos-node run --rpc-addr 127.0.0.1 --cors-header='content-type' --cors-origin='*'
+```
 
 {% hint style="info" %}
 CTRL+A then H to log/record session  
@@ -92,7 +99,7 @@ You can also start your node in detached screen mode and let it run in the backg
 screen -mdSL TezosNode bash -c "cd ~/tezos; ./tezos-node run --rpc-addr 127.0.0.1:8732 --cors-header='content-type' --cors-origin='*'; exec $SHELL"
 ```
 
-This starts your node in a "screen" session, which keeps running in the background, as long as you properly exit it.
+This starts your node in a "screen" session, which keeps running in the background.
 
 Once your node is up and fully synchronized, you are ready to inject operations into the blockchain using ./tezos-client or your own RPC running on port 8732 via the Temple wallet.
 
