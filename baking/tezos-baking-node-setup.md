@@ -8,20 +8,6 @@ description: How to compile Tezos from source and run node software in "screen" 
 
 This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
 
-### Setup ZeroTier \(for node and remote signer communication\)
-
-{% hint style="info" %}
-_ZeroTier is a simple way to setup 2 machines to talk to each other securely._ Run on both remote signer and VPS machines. This puts them on the same network. Now you have a really simple and secure way to connect from the 2 servers.
-
-**This is only a requirement for a "remote signer" setup where you bake in the cloud and sign on your local home or office computer**
-{% endhint %}
-
-```text
-curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
-if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
-sudo zerotier-cli join <YOUR_NETWORK_HERE>
-```
-
 ### Install operating system prerequisites
 
 ```text

@@ -9,7 +9,9 @@ description: >-
 
 ## Prepare to install Tezos node
 
+{% hint style="info" %}
 This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
+{% endhint %}
 
 ### Install operating system prerequisites
 
