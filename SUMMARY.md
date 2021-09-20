@@ -1,7 +1,6 @@
 # Table of contents
 
 * [What is Tezos?](README.md)
-* [Tezos Governance](tezos-governance.md)
 * [Helpful Links](helpful-links.md)
 
 ## Nodes & Baking <a id="baking"></a>
