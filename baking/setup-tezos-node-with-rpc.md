@@ -2,17 +2,19 @@
 description: >-
   The best way to inject operations into the Tezos blockchain and to fetch RPC
   information is from your own node. You get the information faster and you
-  trust fewer people.
+  trust fewer people. You get priority.
 ---
 
 # Setup Tezos Node with RPC
 
 ## Prepare to install Tezos node
 
+The best way to inject operations into the Tezos blockchain and to fetch RPC information is from your own node. You get the information faster and you trust fewer people. You get priority.
+
 {% hint style="info" %}
 This guide starts with the latest Ubuntu 20.10 server version but it should work on all Debian based distributions and older \(not ancient\) versions.
 
-**This guide currently only describes how to run an RPC node on the same computer as your wallet.**  An example of this setup would be running Ubuntu Desktop /w Firefox & Temple/Kukai wallet.  Adding an RPC node in the background is a very safe option which will also improve your wallet performace, especially in cases of high network demand.
+**This guide currently only describes how to run an RPC node on the same computer as your wallet.**  An example of this setup would be running Ubuntu Desktop /w Firefox & Temple/Kukai wallet.  Adding an RPC node in the background is a very safe option which will also improve your wallet performance, especially in cases of high network demand.
 
 You need to keep the node process running in the background when you want to make transactions with it.  Keep in mind it might take a while to fully synchronize again if you have it off for a long time.  For every day it's offline, add 20-40 minutes to sync back up.
 {% endhint %}
