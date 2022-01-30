@@ -38,42 +38,9 @@ CTRL+A then Shift+H to log/record session\
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
-### Start Old Binaries (Florence #009)
 
-```
-screen -S TezosBaker
-export TEZOS_LOG='* -> debug'
-./tezos-baker-009-PsFLoren run with local node ~/.tezos-node baker
-```
 
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-```
-screen -S TezosEndorser009
-export TEZOS_LOG='* -> debug'
-./tezos-endorser-009-PsFLoren run baker
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-```
-screen -S TezosAccuser009
-export TEZOS_LOG='* -> debug'
-./tezos-accuser-009-PsFLoren run
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-### Start New Binaries (Granada #010)
+### Start Old Binaries (Granada #010)
 
 ```
 screen -S TezosBaker010
@@ -109,6 +76,41 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 
+
+### Start New Binaries (Hangzhou2 #011)
+
+```
+screen -S TezosBaker011
+export TEZOS_LOG='* -> debug'
+./tezos-baker-011-PtHangz2 run with local node ~/.tezos-node baker
+```
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session\
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+```
+screen -S TezosEndorser011
+export TEZOS_LOG='* -> debug'
+./tezos-endorser-011-PtHangz2 run baker
+```
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session\
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+```
+screen -S TezosAccuser011
+export TEZOS_LOG='* -> debug'
+./tezos-accuser-011-PtHangz2 run
+```
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session\
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
 
 
 
