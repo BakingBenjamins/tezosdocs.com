@@ -120,9 +120,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosBaker010
+screen -S TezosBaker011
 export TEZOS_LOG='* -> debug'
-./tezos-baker-010-PtGRANAD run with local node ~/.tezos-node baker
+./tezos-baker-011-PtHangz2 run with local node ~/.tezos-node baker
 ```
 
 {% hint style="info" %}
@@ -131,9 +131,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosEndorser010
+screen -S TezosEndorser011
 export TEZOS_LOG='* -> debug'
-./tezos-endorser-010-PtGRANAD run baker
+./tezos-endorser-011-PtHangz2 run baker
 ```
 
 {% hint style="info" %}
@@ -142,9 +142,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosAccuser010
+screen -S TezosAccuser011
 export TEZOS_LOG='* -> debug'
-./tezos-accuser-010-PtGRANAD run
+./tezos-accuser-011-PtHangz2 run
 ```
 
 {% hint style="info" %}
