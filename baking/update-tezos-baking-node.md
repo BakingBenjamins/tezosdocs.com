@@ -1,7 +1,11 @@
 # Update Tezos Baking Node
 
 {% hint style="info" %}
-Update your node to be able to run the Granada proposal while still running Florence in production. Once the switchover happens, the Granada binaries will take over and you can stop the old ones.
+Update your node to be able to run the Ithaca protocol while still running Hangzhou in production. Once the switchover happens, the Ithaca binaries will take over and you can stop the old ones.
+{% endhint %}
+
+{% hint style="info" %}
+<mark style="color:red;">**TO RUN ITHACA PROTOCOL YOU MUST UPGRADE YOUR LEDGER BAKING APP TO VERSION 2.2.15 AND THEN IMEDDIATELY RESET THE HIGH WATERMARK ON THE LEDGER AS EXPLAINED BELOW!**</mark>
 {% endhint %}
 
 ## Updating Tezos Nodes
@@ -38,14 +42,28 @@ CTRL+A then Shift+H to log/record session\
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
+Make sure your Ledger Nano S has version 2.2.15 of the baking app. Once updated, the ledger needs to run the following command immediately or baking will not work. The reason you must update the high watermark is because the way it functions has changed in the Tenderbake consensus.
 
+Go to [https://tzstats.com/](https://tzstats.com) or [https://tzkt.io](https://tzkt.io) and observe the block heigh, which should be a 7 digit number starting with 2 (example 2220810)
 
-### Start Old Binaries (Granada #010)
+{% hint style="info" %}
+<mark style="color:red;">**Replace the 0 below with the current block number.**</mark>  This is important in cases where you've used the Ledger Nano S address to bake in the past.  Since in this case we're resetting a known used Ledger Nano S, we must update the 0 to the latest block to eliminate any possibility of double baking, however remote and minuscule.
+{% endhint %}
 
 ```
-screen -S TezosBaker010
+./tezos-client setup ledger to bake for baker --main-hwm 0
+```
+
+### Start New Binaries (Ithaca #012)
+
+{% hint style="info" %}
+In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca update, the former has been made part of the "baking" process.
+{% endhint %}
+
+```
+screen -S TezosBaker012
 export TEZOS_LOG='* -> debug'
-./tezos-baker-010-PtGRANAD run with local node ~/.tezos-node baker
+./tezos-baker-012-Psithaca run with local node ~/.tezos-node baker
 ```
 
 {% hint style="info" %}
@@ -54,20 +72,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosEndorser010
+screen -S TezosAccuser012
 export TEZOS_LOG='* -> debug'
-./tezos-endorser-010-PtGRANAD run baker
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-```
-screen -S TezosAccuser010
-export TEZOS_LOG='* -> debug'
-./tezos-accuser-010-PtGRANAD run
+./tezos-accuser-012-Psithaca run
 ```
 
 {% hint style="info" %}
@@ -77,7 +84,7 @@ CTRL+A then d to disconnect from Screen session
 
 
 
-### Start New Binaries (Hangzhou2 #011)
+### Start Old Binaries (Hangzhou2 #011)
 
 ```
 screen -S TezosBaker011
@@ -111,6 +118,8 @@ export TEZOS_LOG='* -> debug'
 CTRL+A then Shift+H to log/record session\
 CTRL+A then d to disconnect from Screen session
 {% endhint %}
+
+
 
 
 

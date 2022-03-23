@@ -97,13 +97,16 @@ wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/709581c85db97
 udevadm trigger
 udevadm control --reload-rules
 cd ~/tezos
+
 ./tezos-client list connected ledgers
-# (replace ledger://<4-words-here> commands below with YOUR unique ledger path)
-./tezos-signer import secret key baker "ledger://<4-words-here>/ed25519/0h/0h"
-# (run only first time; to have it available just in case for the other use case with 2 computers)
+
 ./tezos-client import secret key baker "ledger://<4-words-here>/ed25519/0h/0h"
-# (run only first time)
+(note: replace ledger://<4-words-here> commands below with YOUR unique ledger path)
+
 ./tezos-client register key baker as delegate
+
+./tezos-client setup ledger to bake for baker --main-hwm 0
+(note: replace 0 with the current block if you've even baked with this ledger device before)
 ```
 
 ### **Run Every Time: Start Ledger/Node/Baker/Endorser/Accuser Processes**
