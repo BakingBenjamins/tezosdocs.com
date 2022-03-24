@@ -11,4 +11,4 @@
 
 ## Bots
 
-* [Untitled](bots/untitled.md)
+* [@Tezos Token Bot](bots/tezos-token-bot.md)
