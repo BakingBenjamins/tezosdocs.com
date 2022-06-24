@@ -5,7 +5,7 @@ Update your node to be able to run the Ithaca protocol while still running Hangz
 {% endhint %}
 
 {% hint style="info" %}
-<mark style="color:red;">**TO RUN ITHACA PROTOCOL YOU MUST UPGRADE YOUR LEDGER BAKING APP TO VERSION 2.2.15 AND THEN IMEDDIATELY RESET THE HIGH WATERMARK ON THE LEDGER AS EXPLAINED BELOW!**</mark>
+<mark style="color:red;">**TO SECURELY RUN JAKARTA PROTOCOL, YOU MUST UPGRADE YOUR LEDGER BAKING APP TO VERSION 2.3.2**</mark>
 {% endhint %}
 
 ## Updating Tezos Nodes
@@ -44,17 +44,44 @@ CTRL+A then d to disconnect from Screen session
 
 Make sure your Ledger Nano S has version 2.2.15 of the baking app. Once updated, the ledger needs to run the following command immediately or baking will not work. The reason you must update the high watermark is because the way it functions has changed in the Tenderbake consensus.
 
-Go to [https://tzstats.com/](https://tzstats.com) or [https://tzkt.io](https://tzkt.io) and observe the block heigh, which should be a 7 digit number starting with 2 (example 2220810)
+### Start New Binaries (Jakarta #013)
 
 {% hint style="info" %}
-<mark style="color:red;">**Replace the 0 below with the current block number.**</mark>  This is important in cases where you've used the Ledger Nano S address to bake in the past.  Since in this case we're resetting a known used Ledger Nano S, we must update the 0 to the latest block to eliminate any possibility of double baking, however remote and minuscule.
+In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca update, the former has been made part of the "baking" process.
+{% endhint %}
+
+{% hint style="info" %}
+**--liquidity-baking-toggle-vote is now mandatory for the baker daemon. Your options are:**\
+**pass, yes, no (lower case).**&#x20;
+
+**This determines how you vote for Liquidity Baking. Read more here:** [https://news.tezoscommons.org/liquidity-baking-on-tezos-what-to-expect-151be29aa0ed](https://news.tezoscommons.org/liquidity-baking-on-tezos-what-to-expect-151be29aa0ed)
 {% endhint %}
 
 ```
-./tezos-client setup ledger to bake for baker --main-hwm 0
+screen -S TezosBaker013
+export TEZOS_LOG='* -> debug'
+./tezos-baker-013-PtJakart run with local node ~/.tezos-node baker --liquidity-baking-toggle-vote pass
 ```
 
-### Start New Binaries (Ithaca #012)
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session\
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+```
+screen -S TezosAccuser013
+export TEZOS_LOG='* -> debug'
+./tezos-accuser-013-PtJakart run
+```
+
+{% hint style="info" %}
+CTRL+A then Shift+H to log/record session\
+CTRL+A then d to disconnect from Screen session
+{% endhint %}
+
+
+
+### Start Old Binaries (Ithaca #012)
 
 {% hint style="info" %}
 In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca update, the former has been made part of the "baking" process.
@@ -83,41 +110,6 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 
-
-### Start Old Binaries (Hangzhou2 #011)
-
-```
-screen -S TezosBaker011
-export TEZOS_LOG='* -> debug'
-./tezos-baker-011-PtHangz2 run with local node ~/.tezos-node baker
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-```
-screen -S TezosEndorser011
-export TEZOS_LOG='* -> debug'
-./tezos-endorser-011-PtHangz2 run baker
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
-
-```
-screen -S TezosAccuser011
-export TEZOS_LOG='* -> debug'
-./tezos-accuser-011-PtHangz2 run
-```
-
-{% hint style="info" %}
-CTRL+A then Shift+H to log/record session\
-CTRL+A then d to disconnect from Screen session
-{% endhint %}
 
 
 
