@@ -8,6 +8,7 @@
 * [Setup Tezos Baking Node](baking/tezos-baking-node-setup.md)
 * [Update Tezos Baking Node](baking/update-tezos-baking-node.md)
 * [Setup Tezos Node with RPC](baking/setup-tezos-node-with-rpc.md)
+* [Injecting Tezos proposals](baking/injecting-tezos-proposals.md)
 
 ## 🤖 Bots
 
