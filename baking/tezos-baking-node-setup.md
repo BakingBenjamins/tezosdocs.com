@@ -113,7 +113,7 @@ cd ~/tezos
 (note: replace 0 with the current block if you've even baked with this ledger device before)
 ```
 
-### **Run Every Time: Start Ledger/Node/Baker/Endorser/Accuser Processes**
+### **Run Every Time: Start Ledger/Node/Baker/Accuser Processes**
 
 ```
 cd ~/tezos
