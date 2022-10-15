@@ -12,7 +12,7 @@ This guide starts with the latest Ubuntu 20.10 server version but it should work
 
 ```
 sudo apt update
-sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev
+sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync curl bubblewrap libev-dev libgmp-dev pkg-config libhidapi-dev jbuilder software-properties-common opam autoconf libffi-dev patch wget g++ zlib1g-dev bc
 ```
 
 ### Install Tezos prerequisites
@@ -23,7 +23,7 @@ sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync c
 cd /tmp
 wget https://sh.rustup.rs/rustup-init.sh
 chmod +x rustup-init.sh
-./rustup-init.sh --profile minimal --default-toolchain 1.52.1 -y
+./rustup-init.sh --profile minimal --default-toolchain 1.60.0 -y
 ```
 
 ### Install Zcash Parameters
@@ -113,7 +113,7 @@ cd ~/tezos
 
 ```
 cd ~/tezos
-screen -S TezosNode
+screen -S OctezNode
 ./tezos-node run --rpc-addr 127.0.0.1
 ```
 
@@ -123,9 +123,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosBaker012
+screen -S OctezBaker014
 export TEZOS_LOG='* -> debug'
-./tezos-baker-012-Psithaca run with local node ~/.tezos-node baker
+./tezos-baker-014-PtKathma run with local node ~/.tezos-node baker
 ```
 
 {% hint style="info" %}
@@ -134,9 +134,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosAccuser012
+screen -S OctezAccuser014
 export TEZOS_LOG='* -> debug'
-./tezos-accuser-012-Psithaca run
+./tezos-accuser-014-PtKathma run
 ```
 
 {% hint style="info" %}
