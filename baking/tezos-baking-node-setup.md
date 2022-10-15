@@ -4,6 +4,10 @@ description: How to compile Tezos from source and run node software in "screen" 
 
 # Setup Tezos Baking Node
 
+This guide will show how to manually compile Tezos binaries from source code. &#x20;
+
+**If you'd like to get to baking faster and simpler, check out** [**https://bakebuddy.xyz** ](https://bakebuddy.xyz)****
+
 ## Prepare to install Tezos node
 
 This guide starts with the latest Ubuntu 22.04 TLS server version but it should work on all Debian based distributions and older (not ancient) versions.
