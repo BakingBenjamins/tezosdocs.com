@@ -3,9 +3,9 @@
 Update your node to be able to run the Jakarta protocol while still running Ithaca in production. Once the switchover happens, the Ithaca binaries will take over and you can stop the old ones.
 
 {% hint style="info" %}
-<mark style="color:red;">**CURRENTLY OUT OF DATE! DO NOT USE!**</mark>
+<mark style="color:red;">**TO SECURELY RUN JAKARTA PROTOCOL, YOU MUST UPGRADE YOUR LEDGER BAKING APP TO VERSION 2.3.2**</mark>
 
-<mark style="color:red;">**Guide will be updated when Octez 15 is released.**</mark>
+<mark style="color:red;">**THE JAKARTA BAKING DAEMON HAS A NEW MANDATORY FLAG, PAY ATTENTION BELOW!**</mark>
 {% endhint %}
 
 ## Updating Tezos Nodes
