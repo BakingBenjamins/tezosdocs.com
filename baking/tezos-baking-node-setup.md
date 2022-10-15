@@ -4,7 +4,7 @@ description: How to compile Tezos from source and run node software in "screen" 
 
 # Setup Tezos Baking Node
 
-This guide will show how to manually compile Tezos binaries from source code. &#x20;
+This guide will show how to manually compile Tezos binaries from source code.  You can find more information on the Tezos source code website: [https://tezos.gitlab.io/introduction/howtoget.html#compiling-with-make](https://tezos.gitlab.io/introduction/howtoget.html#compiling-with-make)
 
 **If you'd like to get to baking faster and simpler, check out** [**https://bakebuddy.xyz** ](https://bakebuddy.xyz)****
 
