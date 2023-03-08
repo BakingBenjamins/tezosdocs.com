@@ -127,7 +127,7 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S OctezBaker015
+screen -S OctezBakerLima
 export TEZOS_LOG='* -> debug'
 ./octez-baker-PtLimaPt run with local node ~/.tezos-node baker
 ```
@@ -138,7 +138,7 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S OctezAccuser015
+screen -S OctezAccuserLima
 export TEZOS_LOG='* -> debug'
 ./octez-accuser-PtLimaPt run
 ```
