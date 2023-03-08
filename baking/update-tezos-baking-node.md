@@ -1,12 +1,10 @@
+---
+description: Updating from Lima to Mumbai
+---
+
 # Update Tezos Baking Node
 
-Update your node to be able to run the Jakarta protocol while still running Ithaca in production. Once the switchover happens, the Ithaca binaries will take over and you can stop the old ones.
-
-{% hint style="info" %}
-<mark style="color:red;">**TO SECURELY RUN JAKARTA PROTOCOL, YOU MUST UPGRADE YOUR LEDGER BAKING APP TO VERSION 2.3.2**</mark>
-
-<mark style="color:red;">**THE JAKARTA BAKING DAEMON HAS A NEW MANDATORY FLAG, PAY ATTENTION BELOW!**</mark>
-{% endhint %}
+Update your node to be able to run the Mumbai protocol while still running Lima in production. Once the switchover happens, the Ithaca binaries will take over and you can stop the old ones.
 
 ## Updating Tezos Nodes
 
@@ -18,7 +16,9 @@ First you need to navigate where the Tezos binaries are compiled, then you updat
 
 ```
 cd ~/tezos
-git fetch && git checkout latest-release && git pull
+git pull
+git checkout latest-release
+rm -rf _opam _build
 make build-deps
 eval $(opam env)
 make
@@ -44,7 +44,7 @@ CTRL+A then d to disconnect from Screen session
 
 Make sure your Ledger Nano S has version 2.2.15 of the baking app. Once updated, the ledger needs to run the following command immediately or baking will not work. The reason you must update the high watermark is because the way it functions has changed in the Tenderbake consensus.
 
-### Start New Binaries (Jakarta #013)
+### Start New Binaries (Mumbai)
 
 {% hint style="info" %}
 In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca update, the former has been made part of the "baking" process.
@@ -58,9 +58,9 @@ In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca up
 {% endhint %}
 
 ```
-screen -S TezosBaker013
+screen -S TezosBakerMumbai
 export TEZOS_LOG='* -> debug'
-./tezos-baker-013-PtJakart run with local node ~/.tezos-node baker --liquidity-baking-toggle-vote pass
+./octez-baker-PtMumbai run with local node ~/.tezos-node baker --liquidity-baking-toggle-vote pass
 ```
 
 {% hint style="info" %}
@@ -69,9 +69,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosAccuser013
+screen -S TezosAccuserMumbai
 export TEZOS_LOG='* -> debug'
-./tezos-accuser-013-PtJakart run
+./octez-accuser-PtMumbai run
 ```
 
 {% hint style="info" %}
@@ -81,16 +81,16 @@ CTRL+A then d to disconnect from Screen session
 
 
 
-### Start Old Binaries (Ithaca #012)
+### Start Old Binaries (Lima)
 
 {% hint style="info" %}
 In Ithaca, there is no longer a separate "endorsing" process. With the Ithaca update, the former has been made part of the "baking" process.
 {% endhint %}
 
 ```
-screen -S TezosBaker012
+screen -S TezosBakerLima
 export TEZOS_LOG='* -> debug'
-./tezos-baker-012-Psithaca run with local node ~/.tezos-node baker
+./octez-baker-PtLimaPt run with local node ~/.tezos-node baker
 ```
 
 {% hint style="info" %}
@@ -99,9 +99,9 @@ CTRL+A then d to disconnect from Screen session
 {% endhint %}
 
 ```
-screen -S TezosAccuser012
+screen -S TezosAccuserLima
 export TEZOS_LOG='* -> debug'
-./tezos-accuser-012-Psithaca run
+./octez-accuser-PtLimaPt run
 ```
 
 {% hint style="info" %}
