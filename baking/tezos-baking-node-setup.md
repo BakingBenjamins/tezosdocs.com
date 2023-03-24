@@ -131,8 +131,16 @@ CTRL+A then d to disconnect from Screen session
 ```
 screen -S OctezBakerLima
 export TEZOS_LOG='* -> debug'
-./octez-baker-PtLimaPt run with local node ~/.tezos-node baker
+./octez-baker-PtLimaPt run with local node ~/.tezos-node baker --liquidity-baking-toggle-vote pass
 ```
+
+{% hint style="info" %}
+```
+--liquidity-baking-toggle-vote can be set to "pass", "on", and "off"
+
+You can read more about it here: https://news.tezoscommons.org/what-is-liquidity-baking-a-k-a-sirius-dex-140fc2bd0ac9
+```
+{% endhint %}
 
 {% hint style="info" %}
 CTRL+A then H to log/record session\
