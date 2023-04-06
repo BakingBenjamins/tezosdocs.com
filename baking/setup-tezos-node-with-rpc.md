@@ -34,7 +34,7 @@ sudo apt install -y curl xz-utils jq screen build-essential git m4 unzip rsync c
 cd /tmp
 wget https://sh.rustup.rs/rustup-init.sh
 chmod +x rustup-init.sh
-./rustup-init.sh --profile minimal --default-toolchain 1.52.1 -y
+./rustup-init.sh --profile minimal --default-toolchain 1.60.0 -y
 ```
 
 ### Install Zcash Parameters
@@ -78,7 +78,7 @@ make
 ### Generate Tezos node identity
 
 ```
-./tezos-node identity generate
+./octez-node identity generate
 ```
 
 ### Import chain snapshot and verify its legitimacy
@@ -88,7 +88,7 @@ The import of the snapshot will take a no more than an hour on most systems.  If
 {% endhint %}
 
 ```
-./tezos-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>
+./octez-node snapshot import /path/to/chain.full --block <ENTER_BLOCK_HASH_HERE>
 ```
 
 Replace the made up path to where your downloaded and uncompressed the Tezos chain snapshot. Navigate to any Tezos blockchain explorer like [https://tzstats.com](https://tzstats.com) and [https://tzkt.io](https://tzkt.io) and look up the block number referenced by the snapshot website. The block will have a hash # associated with it, which you will need to copy into the `<ENTER_BLOCK_HASH_HERE>` portion. This verifies the integrity of the chain and saves you many hours of synchronization and waiting.
@@ -108,7 +108,7 @@ CTRL+A then d to disconnect from Screen session
 You can also start your node in detached screen mode and let it run in the background
 
 ```
-screen -mdSL TezosNode bash -c "cd ~/tezos; ./tezos-node run --rpc-addr 127.0.0.1:8732 --cors-header='content-type' --cors-origin='*'; exec $SHELL"
+screen -mdSL TezosNode bash -c "cd ~/tezos; ./octez-node run --rpc-addr 127.0.0.1:8732 --cors-header='content-type' --cors-origin='*'; exec $SHELL"
 ```
 
 This starts your node in a "screen" session, which keeps running in the background.
